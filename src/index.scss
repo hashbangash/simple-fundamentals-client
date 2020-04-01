@@ -1,1 +1,18 @@
 @import '~bootstrap/scss/bootstrap';
+
+@font-face {
+  font-family: 'Open Dyslexic';
+  src: url('styling/OpenDyslexic/OpenDyslexic3-Regular.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Open Dyslexic';
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 1.5rem;
+}
