@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
@@ -14,16 +14,31 @@ const Button = styled.button`
   margin: 0 0.25rem 0 0.25rem;
 `
 
+const NumLikes = styled.span`
+  margin: 0 0.25rem 0 0.25rem;
+`
+
+const NumComments = styled.span`
+  margin: 0 0.25rem 0 0.25rem;
+  text-decoration: underline;
+
+  &:hover {
+    background: yellow;
+  }
+`
+
 const Cards = props => {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
     axios(`${apiUrl}/cards`)
-      .then(res => setCards(res.data.cards))
+      .then(res => {
+        setCards(res.data.cards)
+        console.log(res.data.cards)
+      })
       .catch(console.error)
   }, [])
 
-  // <Link to={`/cards/${card.id}`}>{card.word}</Link>
   const cardsJSX = cards.map(card => (
     <Box key={card.id}>
       <h2 className="word">
@@ -32,6 +47,10 @@ const Cards = props => {
       <p className="definition">
         {card.definition}
       </p>
+      <NumLikes>{card.likes.length} Like(s)</NumLikes>
+      <NumComments>
+        <Link to={`/cards/${card.id}`}>{card.comments.length} Comment(s)</Link>
+      </NumComments>
       <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
       <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
     </Box>
