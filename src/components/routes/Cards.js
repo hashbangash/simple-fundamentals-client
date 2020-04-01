@@ -14,12 +14,17 @@ const Button = styled.button`
   margin: 0 0.25rem 0 0.25rem;
 `
 
-const Like = styled.span`
+const NumLikes = styled.span`
   margin: 0 0.25rem 0 0.25rem;
 `
 
-const Comment = styled.span`
+const NumComments = styled.span`
   margin: 0 0.25rem 0 0.25rem;
+  text-decoration: underline;
+
+  &:hover {
+    background: yellow;
+  }
 `
 
 const Cards = props => {
@@ -42,10 +47,10 @@ const Cards = props => {
       <p className="definition">
         {card.definition}
       </p>
-      <Like>{card.likes.length} Like(s)</Like>
-      <Comment>
+      <NumLikes>{card.likes.length} Like(s)</NumLikes>
+      <NumComments>
         <Link to={`/cards/${card.id}`}>{card.comments.length} Comment(s)</Link>
-      </Comment>
+      </NumComments>
       <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
       <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
     </Box>

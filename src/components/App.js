@@ -9,6 +9,7 @@ import SignIn from './auth/SignIn'
 import SignOut from './auth/SignOut'
 import ChangePassword from './auth/ChangePassword'
 import Cards from './routes/Cards'
+import Card from './routes/Card'
 
 class App extends Component {
   constructor () {
@@ -43,7 +44,8 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route path='/' component={Cards} />
+          <Route exact path='/' component={Cards} />
+          <Route exact path='/cards/:id' component={Card} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
