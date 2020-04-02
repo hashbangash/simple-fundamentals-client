@@ -49,7 +49,7 @@ const CommentEdit = props => {
   }
 
   if (updatedComment) {
-    return <Redirect to="/cards" />
+    return <Redirect to={`/cards/${props.match.params.id}`} />
   }
 
   return (
