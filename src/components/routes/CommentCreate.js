@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-// import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import apiUrl from '../../apiConfig'
@@ -8,7 +8,7 @@ import CommentForm from '../shared/CommentForm'
 const CommentCreate = props => {
   console.log('props in CommentCreate', props)
   const [commentData, setComment] = useState({ commentText: '', author: '' })
-  // const [setCreatedCommentId] = useState(null)
+  const [createdCommentCardId, setCreatedCommentCardId] = useState(null)
 
   const handleChange = event => {
     const updatedField = { [event.target.name]: event.target.value }
@@ -38,15 +38,15 @@ const CommentCreate = props => {
       data: comment
     })
       .then(res => {
-        console.log(res)
-        // setCreatedCommentId(res.data.comment.id)
+        console.log('response', res)
+        setCreatedCommentCardId(res.data.comment.card.id)
       })
       .catch(console.error)
   }
 
-  // if (createdCommentId) {
-  //   return <Redirect to={`/card/${createdCommentId}`} />
-  // }
+  if (createdCommentCardId) {
+    return <Redirect to={`/cards/${createdCommentCardId}`} />
+  }
 
   return (
     <Fragment>
