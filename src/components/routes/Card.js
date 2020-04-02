@@ -55,6 +55,7 @@ const Card = props => {
       </Box>
       <Comments
         user={props.user}
+        cardId={card.id}
       />
     </Fragment>
   )

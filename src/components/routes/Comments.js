@@ -18,10 +18,12 @@ const Comments = props => {
   console.log('props in Comments', props)
   const [comments, setComments] = useState([])
 
+  console.log('card id in comments', props.cardId)
   useEffect(() => {
     axios(`${apiUrl}/comments`)
       .then(res => {
-        setComments(res.data.comments)
+        setComments(res.data.comments.filter(comment => comment.card.id === props.cardId))
+        console.log('props in Comments after filter', props)
       })
       .catch(console.error)
   }, [])
