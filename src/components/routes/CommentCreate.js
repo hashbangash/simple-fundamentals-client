@@ -1,12 +1,11 @@
 import React, { useState, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-
 import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
 
 const CommentCreate = props => {
-  console.log('props in CommentCreate', props)
+  console.log('herro wereld')
   const [commentData, setComment] = useState({ commentText: '', author: '' })
   const [createdCommentCardId, setCreatedCommentCardId] = useState(null)
 
