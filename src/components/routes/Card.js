@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import apiUrl from '../../apiConfig'
@@ -35,6 +36,7 @@ const Card = props => {
     return <p>Loading...</p>
   }
 
+  // <Nav.Link href='#create-comment'>Add Comment</Nav.Link>
   return (
     <Fragment>
       <Box key={card.id}>
@@ -46,7 +48,9 @@ const Card = props => {
         </p>
         <NumLikes>{card.likes.length} Like(s)</NumLikes>
         <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
-        <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
+        <Link to={`/cards/${props.match.params.id}/create-comment`}>
+          <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
+        </Link>
       </Box>
       <Comments>
       </Comments>

@@ -17,7 +17,6 @@ const Comments = props => {
     axios(`${apiUrl}/comments`)
       .then(res => {
         setComments(res.data.comments)
-        console.log(res.data.comments)
       })
       .catch(console.error)
   }, [])
