@@ -1,87 +1,63 @@
-import React, { Component } from 'react'
+import React, { useState, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import apiUrl from '../apiConfig'
 
-class CommentCreate extends Component {
-  constructor () {
-    super()
-    this.state = {
-      movie: {
-        title: '',
-        director: '',
-        year: ''
-      },
-      redirect: null
-    }
+import apiUrl from '../../apiConfig'
+import CommentForm from '../shared/CommentForm'
+
+const CommentCreate = props => {
+  console.log('props in CommentCreate', props)
+  const [commentData, setComment] = useState({ commentText: '', author: '' })
+  const [createdCommentCardId, setCreatedCommentCardId] = useState(null)
+
+  const handleChange = event => {
+    const updatedField = { [event.target.name]: event.target.value }
+    const editedComment = Object.assign({ ...commentData }, updatedField)
+    setComment(editedComment)
   }
-  handleChange = (event) => {
-    // create a new object with key of `name` property on input and
-    // `value` with `value` property
-    const updatedField = {
-      // key in square brackets because it's a variable
-      [event.target.name]: event.target.value
-    }
-    // combine the current movie with updatedField using `Object.assign` method
-    const editedMovie = Object.assign(this.state.movie, updatedField)
-    // set the state
-    this.setState({ movie: editedMovie })
-  }
-  handleSubmit = (event) => {
+
+  const handleSubmit = event => {
     event.preventDefault()
+
+    const cardId = parseInt(props.match.params.id, 10)
+    const comment = {
+      comment: {
+        user_id: props.user.id,
+        commentText: commentData.commentText,
+        author: commentData.author,
+        card_id: cardId
+      }
+    }
+    console.log('formatted comment', comment)
     axios({
-      method: 'post',
-      url: `${apiUrl}/movies`,
-      data: { movie: this.state.movie }
+      url: `${apiUrl}/comments`,
+      method: 'POST',
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      },
+      data: comment
     })
       .then(res => {
-        console.log('res', res)
-        this.setState({ redirect: <Redirect to={`/movies/${res.data.movie.id}`}/> })
-        // data:
-        // movie: {id: 3073, title: "ERON IS BEST", director: "Someone Else", year: "2020-03-04", actors: Array(0)}
+        console.log('response', res)
+        setCreatedCommentCardId(res.data.comment.card.id)
       })
       .catch(console.error)
   }
-  render () {
-    // destructure from state
-    const { movie, redirect } = this.state
-    let createJSX
-    // if we've updated the movie, redirect to the show page
-    if (redirect) {
-      createJSX = redirect
-    } else {
-      createJSX = (
-        <div>
-          <h1>Movie Create page</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>Title</label>
-            <input
-              placeholder='a title'
-              name='title'
-              value={movie.title || ''}
-              onChange={this.handleChange}
-            />
-            <label>Director</label>
-            <input
-              placeholder='a director'
-              name='director'
-              value={movie.director || ''}
-              onChange={this.handleChange}
-            />
-            <label>Year</label>
-            <input
-              placeholder='YYYY/MM/DD'
-              name='year'
-              value={movie.year || ''}
-              type='date'
-              onChange={this.handleChange}
-            />
-            <button type='submit'>Submit</button>
-          </form>
-        </div>
-      )
-    }
-    return createJSX
+
+  if (createdCommentCardId) {
+    return <Redirect to={`/cards/${createdCommentCardId}`} />
   }
+
+  return (
+    <Fragment>
+      <CommentForm
+        comment={commentData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        cancelPath="/"
+      />
+    </Fragment>
+  )
 }
+
 export default CommentCreate

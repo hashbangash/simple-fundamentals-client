@@ -34,7 +34,6 @@ const Cards = props => {
     axios(`${apiUrl}/cards`)
       .then(res => {
         setCards(res.data.cards)
-        console.log(res.data.cards)
       })
       .catch(console.error)
   }, [])

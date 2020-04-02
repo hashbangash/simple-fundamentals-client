@@ -17,7 +17,6 @@ const Comments = props => {
     axios(`${apiUrl}/comments`)
       .then(res => {
         setComments(res.data.comments)
-        console.log(res.data.comments)
       })
       .catch(console.error)
   }, [])
@@ -25,7 +24,13 @@ const Comments = props => {
   const cardsJSX = comments.map(comment => (
     <Box key={comment.id}>
       <p className="commentText">
-        {comment.commentText}
+        &quot;{comment.commentText}&quot;
+      </p>
+      <p className="author">
+        {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
+      </p>
+      <p className="created-at">
+        date posted: {comment.created_at}
       </p>
     </Box>
   ))
