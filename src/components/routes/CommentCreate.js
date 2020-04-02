@@ -1,50 +1,48 @@
-import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useState, Fragment } from 'react'
+// import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import apiUrl from '../../apiConfig'
-import MovieForm from '../shared/MovieForm'
+import CommentForm from '../shared/CommentForm'
 
-const MovieCreate = props => {
-  const [movie, setMovie] = useState({ title: '', director: '', year: '' })
-  const [createdMovieId, setCreatedMovieId] = useState(null)
+const CommentCreate = props => {
+  const [comment, setComment] = useState({ commentText: '', author: '' })
+  const [setCreatedCommentId] = useState(null)
 
   const handleChange = event => {
     const updatedField = { [event.target.name]: event.target.value }
-    const editedMovie = Object.assign({ ...movie }, updatedField)
-    setMovie(editedMovie)
-
-    // console.log({ ...movie, [event.target.name]: event.target.value })
-
-    // setMovie({ ...movie, [event.target.name]: event.target.value })
+    const editedComment = Object.assign({ ...comment }, updatedField)
+    setComment(editedComment)
   }
 
   const handleSubmit = event => {
     event.preventDefault()
-
+    console.log('event', event)
+    console.log('comment', comment)
+    console.log('props', props)
     axios({
-      url: `${apiUrl}/movies`,
+      url: `${apiUrl}/comments`,
       method: 'POST',
-      data: { movie }
+      data: { comment }
     })
-      .then(res => setCreatedMovieId(res.data.movie.id))
+      .then(res => setCreatedCommentId(res.data.comment.id))
       .catch(console.error)
   }
 
-  if (createdMovieId) {
-    return <Redirect to={`/movies/${createdMovieId}`} />
-  }
+  // if (createdCommentId) {
+  //   return <Redirect to={`/card/${createdCommentId}`} />
+  // }
 
   return (
-    <Layout>
-      <MovieForm
-        movie={movie}
+    <Fragment>
+      <CommentForm
+        comment={comment}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         cancelPath="/"
       />
-    </Layout>
+    </Fragment>
   )
 }
 
-export default MovieCreate
+export default CommentCreate

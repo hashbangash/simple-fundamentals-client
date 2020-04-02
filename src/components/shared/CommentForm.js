@@ -5,17 +5,17 @@ const CommentForm = ({ comment, handleSubmit, handleChange, cancelPath }) => (
   <form onSubmit={handleSubmit}>
     <label>Comment</label>
     <input
-      placeholder="A Wonderful Film"
+      placeholder="text here"
       value={comment.commentText}
-      name="title"
+      name="commentText"
       onChange={handleChange}
     />
 
     <label>Author</label>
     <input
-      placeholder="John Doe"
+      placeholder="by Anonymous"
       value={comment.author}
-      name="director"
+      name="author"
       onChange={handleChange}
     />
 

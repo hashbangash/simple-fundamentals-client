@@ -10,6 +10,7 @@ import SignOut from './auth/SignOut'
 import ChangePassword from './auth/ChangePassword'
 import Cards from './routes/Cards'
 import Card from './routes/Card'
+import CommentCreate from './routes/CommentCreate'
 
 class App extends Component {
   constructor () {
@@ -46,6 +47,11 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' component={Cards} />
           <Route exact path='/cards/:id' component={Card} />
+          <AuthenticatedRoute exact path='/cards/:id/create-comment' render={({ match }) => (
+            <CommentCreate
+              msgAlert={this.msgAlert} user={user} match={match}
+            />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
