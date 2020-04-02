@@ -46,7 +46,11 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/' component={Cards} />
-          <Route exact path='/cards/:id' component={Card} />
+          <Route exact path='/cards/:id' user={user} render={({ match }) => (
+            <Card
+              msgAlert={this.msgAlert} user={user} match={match}
+            />
+          )}/>
           <AuthenticatedRoute user={user} exact path='/cards/:id/create-comment' render={({ match }) => (
             <CommentCreate
               msgAlert={this.msgAlert} user={user} match={match}

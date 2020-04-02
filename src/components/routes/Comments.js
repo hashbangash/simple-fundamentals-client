@@ -15,6 +15,7 @@ const Button = styled.button`
 `
 
 const Comments = props => {
+  console.log('props in Comments', props)
   const [comments, setComments] = useState([])
 
   useEffect(() => {
@@ -25,22 +26,39 @@ const Comments = props => {
       .catch(console.error)
   }, [])
 
-  const cardsJSX = comments.map(comment => (
-    <Box key={comment.id}>
-      <p className="commentText">
+  let cardsJSX
+  if (props.user !== null) {
+    console.log('user id', props.user.id)
+    cardsJSX = comments.map(comment => (
+      <Box key={comment.id}>
+        <p className="commentText">
         &quot;{comment.commentText}&quot;
-      </p>
-      <p className="author">
-        {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
-      </p>
-      <p className="created-at">
+        </p>
+        <p className="author">
+          {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
+        </p>
+        <p className="created-at">
         date posted: {comment.created_at}
-      </p>
-      <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>Edit</Button>
-      {comment.editable && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
-
-    </Box>
-  ))
+        </p>
+        {(comment.user.id === props.user.id) && <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>Edit</Button>}
+        {(comment.user.id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
+      </Box>
+    ))
+  } else {
+    cardsJSX = comments.map(comment => (
+      <Box key={comment.id}>
+        <p className="commentText">
+        &quot;{comment.commentText}&quot;
+        </p>
+        <p className="author">
+          {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
+        </p>
+        <p className="created-at">
+        date posted: {comment.created_at}
+        </p>
+      </Box>
+    ))
+  }
 
   return (
     <Fragment>
