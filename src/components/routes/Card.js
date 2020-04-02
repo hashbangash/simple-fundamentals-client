@@ -22,6 +22,7 @@ const NumLikes = styled.span`
 
 const Card = props => {
   const [card, setCard] = useState(null)
+  console.log('props in Card', props)
   // Call this callback once after the first render, this only occurs once
   // because our dependency array is empty, so our dependencies never change
   // similar to componentDidMount

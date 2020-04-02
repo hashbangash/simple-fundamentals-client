@@ -6,9 +6,9 @@ import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
 
 const CommentCreate = props => {
-  console.log('props', props)
+  console.log('props in CommentCreate', props)
   const [commentData, setComment] = useState({ commentText: '', author: '' })
-  const [setCreatedCommentId] = useState(null)
+  // const [setCreatedCommentId] = useState(null)
 
   const handleChange = event => {
     const updatedField = { [event.target.name]: event.target.value }
@@ -18,9 +18,7 @@ const CommentCreate = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    // console.log('event', event)
-    // console.log('comment', comment)
-    // console.log('props', props)
+
     const cardId = parseInt(props.match.params.id, 10)
     const comment = {
       comment: {
@@ -34,9 +32,15 @@ const CommentCreate = props => {
     axios({
       url: `${apiUrl}/comments`,
       method: 'POST',
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      },
       data: comment
     })
-      .then(res => setCreatedCommentId(res.data.comment.id))
+      .then(res => {
+        console.log(res)
+        // setCreatedCommentId(res.data.comment.id)
+      })
       .catch(console.error)
   }
 
