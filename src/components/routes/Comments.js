@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
@@ -42,7 +43,12 @@ const Comments = props => {
         <p className="created-at">
         date posted: {comment.created_at}
         </p>
-        {(comment.user.id === props.user.id) && <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>Edit</Button>}
+        {(comment.user.id === props.user.id) &&
+          <Link to={`/cards/${props.match.params.id}/comments/${comment.id}/edit`}>
+            <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>
+              Edit
+            </Button>
+          </Link>}
         {(comment.user.id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
       </Box>
     ))

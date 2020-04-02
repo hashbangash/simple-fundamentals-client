@@ -37,7 +37,6 @@ const Card = props => {
     return <p>Loading...</p>
   }
 
-  // <Nav.Link href='#create-comment'>Add Comment</Nav.Link>
   return (
     <Fragment>
       <Box key={card.id}>
@@ -56,6 +55,7 @@ const Card = props => {
       <Comments
         user={props.user}
         cardId={card.id}
+        match={props.match}
       />
     </Fragment>
   )
