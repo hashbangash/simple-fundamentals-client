@@ -8,6 +8,7 @@ import messages from '../AutoDismissAlert/messages'
 const CommentCreate = props => {
   const [commentData, setComment] = useState({ commentText: '', author: '' })
   const [createdCommentCardId, setCreatedCommentCardId] = useState(null)
+  const cardId = parseInt(props.match.params.id, 10)
 
   const handleChange = event => {
     const updatedField = { [event.target.name]: event.target.value }
@@ -18,7 +19,6 @@ const CommentCreate = props => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    const cardId = parseInt(props.match.params.id, 10)
     const comment = {
       comment: {
         user_id: props.user.id,
@@ -51,14 +51,13 @@ const CommentCreate = props => {
   if (createdCommentCardId) {
     return <Redirect to={`/cards/${createdCommentCardId}`} />
   }
-
   return (
     <Fragment>
       <CommentForm
         comment={commentData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        cancelPath="/"
+        cancelPath={`/cards/${cardId}/`}
       />
     </Fragment>
   )
