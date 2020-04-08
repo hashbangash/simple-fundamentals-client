@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
+import messages from '../AutoDismissAlert/messages'
 
 const CommentCreate = props => {
   const [commentData, setComment] = useState({ commentText: '', author: '' })
@@ -38,7 +39,14 @@ const CommentCreate = props => {
       .then(res => {
         setCreatedCommentCardId(res.data.comment.card.id)
       })
-      .catch(console.error)
+      .then(() => props.msgAlert({
+        message: messages.createCommentSuccess,
+        variant: 'success'
+      }))
+      .catch(() => props.msgAlert({
+        message: messages.createCommentFailure,
+        variant: 'failure'
+      }))
   }
 
   if (createdCommentCardId) {

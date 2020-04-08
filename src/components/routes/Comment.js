@@ -3,6 +3,7 @@ import { Redirect, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import messages from '../AutoDismissAlert/messages'
 
 const Box = styled.div`
   margin: 1rem;
@@ -27,12 +28,19 @@ const Comment = props => {
       }
     })
       .then(() => setDeleted(true))
-      .catch(console.error)
+      .then(() => props.msgAlert({
+        message: messages.deleteCommentSuccess,
+        variant: 'success'
+      }))
+      .catch(() => props.msgAlert({
+        message: messages.deleteCommentFailure,
+        variant: 'failure'
+      }))
   }
 
   if (deleted) {
     return <Redirect to={
-      { pathname: `/cards/${props.card_id}/`, state: { msg: 'Movie succesfully deleted!' } }
+      { pathname: `/cards/${props.card_id}/` }
     } />
   }
 

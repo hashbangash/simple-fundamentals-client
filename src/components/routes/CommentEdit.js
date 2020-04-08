@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
+import messages from '../AutoDismissAlert/messages'
 
 const CommentEdit = props => {
   console.log('props at CommentEdit start', props)
@@ -14,7 +15,10 @@ const CommentEdit = props => {
   useEffect(() => {
     axios(`${apiUrl}/comments/${props.match.params.id}`)
       .then(res => setComment(res.data.comment))
-      .catch(console.error)
+      .catch(() => props.msgAlert({
+        message: messages.genericFailure,
+        variant: 'failure'
+      }))
   }, [])
 
   const handleChange = event => {
@@ -43,7 +47,14 @@ const CommentEdit = props => {
       data: comment
     })
       .then(() => setUpdatedComment(true))
-      .catch(console.error)
+      .then(() => props.msgAlert({
+        message: messages.editCommentSuccess,
+        variant: 'success'
+      }))
+      .catch(() => props.msgAlert({
+        message: messages.editCommentFailure,
+        variant: 'failure'
+      }))
   }
 
   if (updatedComment) {

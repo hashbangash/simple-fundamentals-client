@@ -18,13 +18,13 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link to="#">Home</Nav.Link>
+    <Nav.Link href="#cards">Flashcards</Nav.Link>
   </Fragment>
 )
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="/">
+    <Navbar.Brand>
       the simple fundamentals of programming
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
