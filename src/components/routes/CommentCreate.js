@@ -5,7 +5,6 @@ import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
 
 const CommentCreate = props => {
-  console.log('herro wereld')
   const [commentData, setComment] = useState({ commentText: '', author: '' })
   const [createdCommentCardId, setCreatedCommentCardId] = useState(null)
 
@@ -27,7 +26,7 @@ const CommentCreate = props => {
         card_id: cardId
       }
     }
-    console.log('formatted comment', comment)
+    console.log('formatted comment in CommentCreate', comment)
     axios({
       url: `${apiUrl}/comments`,
       method: 'POST',
@@ -37,7 +36,6 @@ const CommentCreate = props => {
       data: comment
     })
       .then(res => {
-        console.log('response', res)
         setCreatedCommentCardId(res.data.comment.card.id)
       })
       .catch(console.error)
