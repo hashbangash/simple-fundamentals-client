@@ -5,7 +5,9 @@ import apiUrl from '../../apiConfig'
 import CommentForm from '../shared/CommentForm'
 
 const CommentEdit = props => {
-  console.log('props in CommentEdit', props)
+  console.log('props at CommentEdit start', props)
+  const currentUrl = props.match.url
+  const cardId = currentUrl.split('/')[2]
   const [commentData, setComment] = useState({ commentText: '', author: '' })
   const [updatedComment, setUpdatedComment] = useState(null)
 
@@ -21,21 +23,17 @@ const CommentEdit = props => {
     // React doesn't like mutating objects/storing its data without using this.setState
     // destructuring the comment, making a copy of the object to update it with the modified field
     setComment(editedComment)
-    console.log('editedComment', editedComment)
   }
 
   const handleSubmit = event => {
     event.preventDefault()
-    const cardId = parseInt(props.match.params.id, 10)
     const comment = {
       comment: {
-        user_id: props.user.id,
         commentText: commentData.commentText,
-        author: commentData.author,
-        card_id: cardId
+        author: commentData.author
       }
     }
-    console.log('formatted comment', comment)
+    console.log('formatted comment in CommentEdit', comment)
     axios({
       url: `${apiUrl}/comments/${props.match.params.id}`,
       method: 'PATCH',
@@ -49,7 +47,7 @@ const CommentEdit = props => {
   }
 
   if (updatedComment) {
-    return <Redirect to={`/cards/${props.match.params.id}`} />
+    return <Redirect to={`/cards/${cardId}`} />
   }
 
   return (

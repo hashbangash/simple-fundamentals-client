@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
-import Comments from './Comments'
+import Comment from './Comment'
 
 const Box = styled.div`
   margin: 1rem;
@@ -16,22 +16,56 @@ const Button = styled.button`
   margin: 0 0.25rem 0 0.25rem;
 `
 
-const NumLikes = styled.span`
-  margin: 0 0.25rem 0 0.25rem;
-`
-
 const Card = props => {
-  console.log('props in Card', props)
   const [card, setCard] = useState(null)
+  const [commentsJSX, setCommentsJSX] = useState(null)
+
   // Call this callback once after the first render, this only occurs once
   // because our dependency array is empty, so our dependencies never change
   // similar to componentDidMount
   useEffect(() => {
     axios(`${apiUrl}/cards/${props.match.params.id}`)
-      // Make sure to update this.setState to our hooks setMovie function
-      .then(res => setCard(res.data.card))
+      .then(res => {
+        setCard(res.data.card)
+        console.log('card', res.data.card)
+        createJSX(res.data.card)
+      })
       .catch(console.error)
   }, [])
+
+  const createJSX = (card) => {
+    // use card.comments to create a Comment for each comment in comments
+    let commentsJSX
+    if (props.user !== null) {
+      commentsJSX = card.comments.map(comment => (
+        <Comment
+          key={comment.id}
+          user={props.user}
+          id={comment.id}
+          commentText={comment.commentText}
+          author={comment.author}
+          created_at={comment.created_at}
+          user_id={comment.user_id}
+          card_id={comment.card_id}
+        />
+      ))
+    } else {
+      commentsJSX = card.comments.map(comment => (
+        <Box key={comment.id}>
+          <p className="commentText">
+          &quot;{comment.commentText}&quot;
+          </p>
+          <p className="author">
+            {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
+          </p>
+          <p className="created-at">
+          date posted: {comment.created_at}
+          </p>
+        </Box>
+      ))
+    }
+    setCommentsJSX(commentsJSX)
+  }
 
   if (!card) {
     return <p>Loading...</p>
@@ -46,17 +80,15 @@ const Card = props => {
         <p className="definition">
           {card.definition}
         </p>
-        <NumLikes>{card.likes.length} Like(s)</NumLikes>
-        <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
-        <Link to={`/cards/${props.match.params.id}/create-comment`}>
-          <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
-        </Link>
+        {(props.user !== null) &&
+          <Fragment>
+            <Link to={`/cards/${props.match.params.id}/create-comment`}>
+              <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>add comment</Button>
+            </Link>
+          </Fragment>
+        }
       </Box>
-      <Comments
-        user={props.user}
-        cardId={card.id}
-        match={props.match}
-      />
+      {commentsJSX}
     </Fragment>
   )
 }
