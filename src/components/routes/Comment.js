@@ -1,6 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Redirect, Link } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 
 const Box = styled.div`
   margin: 1rem;
@@ -14,7 +16,25 @@ const Button = styled.button`
 `
 
 const Comment = props => {
-  console.log('props in Comment', props)
+  const [deleted, setDeleted] = useState(false)
+
+  const destroy = () => {
+    axios({
+      url: `${apiUrl}/comments/${props.id}`,
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token token=${props.user.token}`
+      }
+    })
+      .then(() => setDeleted(true))
+      .catch(console.error)
+  }
+
+  if (deleted) {
+    return <Redirect to={
+      { pathname: `/cards/${props.card_id}/`, state: { msg: 'Movie succesfully deleted!' } }
+    } />
+  }
 
   return (
     <Box key={props.id}>
@@ -33,7 +53,7 @@ const Comment = props => {
             edit
           </Button>
         </Link>}
-      {(props.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={props.id}>delete</Button>}
+      {(props.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={props.id} onClick={destroy}>delete</Button>}
     </Box>
   )
 }
