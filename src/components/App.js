@@ -47,7 +47,7 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/' render={() => {
-            return <div><h2>an accessible flashcard app.</h2><h3> click the Flashcards link (in the menu) to get started.</h3></div>
+            return <h2>an accessible flashcard app.</h2>
           }}
           />
           <Route exact path='/cards' render={({ match }) => (
