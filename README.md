@@ -42,7 +42,7 @@ Note that I also did install `styled-components` for React styling with this com
 I created detailed wireframes([1](https://media.git.generalassemb.ly/user/25387/files/959aa680-7272-11ea-90b4-0c6efa4085fc) and [2](https://media.git.generalassemb.ly/user/25387/files/992e2d80-7272-11ea-994d-046a84c8c1d4)), as well as [user stories and an ERD](https://media.git.generalassemb.ly/user/25387/files/9af7f100-7272-11ea-8068-a2c8264a4ae6).
 
 ## process & problem-solving
-I worked built with React for a few days, getting used to the syntax and the new way of thinking with a declarative paradigm.
+I set up my Rails API first and deployed it on Heroku. I tested the endpoints locally and on Heroku using Postman. Then, I built with React for a few days, getting used to the syntax and the new way of thinking with a declarative paradigm.
 
 After nearly finishing my app, I got stuck trying to create a component within a component in order to perform deletion of a resource. I was having issues with managing props and state. I decided to take a step back.
 

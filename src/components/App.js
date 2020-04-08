@@ -46,7 +46,11 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route exact path='/' component={Cards} />
+          <Route exact path='/' render={() => {
+            return <div><h2>an accessible flashcard app.</h2><h3> click the Flashcards link (in the menu) to get started.</h3></div>
+          }}
+          />
+          <Route exact path='/cards' component={Cards} />
           <Route exact path='/cards/:id' user={user} render={({ match }) => (
             <Card
               msgAlert={this.msgAlert} user={user} match={match}
