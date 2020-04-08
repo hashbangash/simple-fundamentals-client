@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
+import Comment from './Comment'
 
 const Box = styled.div`
   margin: 1rem;
@@ -37,24 +38,16 @@ const Card = props => {
     let commentsJSX
     if (props.user !== null) {
       commentsJSX = card.comments.map(comment => (
-        <Box key={comment.id}>
-          <p className="commentText">
-          &quot;{comment.commentText}&quot;
-          </p>
-          <p className="author">
-            {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
-          </p>
-          <p className="created-at">
-          date posted: {comment.created_at}
-          </p>
-          {(comment.user_id === props.user.id) &&
-            <Link to={`/cards/${comment.card_id}/comments/${comment.id}/edit`}>
-              <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>
-                edit
-              </Button>
-            </Link>}
-          {(comment.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>delete</Button>}
-        </Box>
+        <Comment
+          key={comment.id}
+          user={props.user}
+          id={comment.id}
+          commentText={comment.commentText}
+          author={comment.author}
+          created_at={comment.created_at}
+          user_id={comment.user_id}
+          card_id={comment.card_id}
+        />
       ))
     } else {
       commentsJSX = card.comments.map(comment => (

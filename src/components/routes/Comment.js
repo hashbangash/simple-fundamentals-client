@@ -1,7 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
 
 const Box = styled.div`
@@ -15,63 +13,28 @@ const Button = styled.button`
   margin: 0 0.25rem 0 0.25rem;
 `
 
-const Comments = props => {
-  console.log('props in Comments', props)
-  const [comments, setComments] = useState([])
-
-  console.log('card id in comments', props.cardId)
-  useEffect(() => {
-    axios(`${apiUrl}/comments`)
-      .then(res => {
-        setComments(res.data.comments.filter(comment => comment.card.id === props.cardId))
-        console.log('props in Comments after filter', props)
-      })
-      .catch(console.error)
-  }, [])
-
-  let cardsJSX
-  if (props.user !== null) {
-    console.log('user id', props.user.id)
-    cardsJSX = comments.map(comment => (
-      <Box key={comment.id}>
-        <p className="commentText">
-        &quot;{comment.commentText}&quot;
-        </p>
-        <p className="author">
-          {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
-        </p>
-        <p className="created-at">
-        date posted: {comment.created_at}
-        </p>
-        {(comment.user.id === props.user.id) &&
-          <Link to={`/cards/${props.match.params.id}/comments/${comment.id}/edit`}>
-            <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>
-              Edit
-            </Button>
-          </Link>}
-        {(comment.user.id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
-      </Box>
-    ))
-  } else {
-    cardsJSX = comments.map(comment => (
-      <Box key={comment.id}>
-        <p className="commentText">
-        &quot;{comment.commentText}&quot;
-        </p>
-        <p className="author">
-          {(comment.author !== null && comment.author !== '') ? `by ${comment.author}` : 'by Anonymous'}
-        </p>
-        <p className="created-at">
-        date posted: {comment.created_at}
-        </p>
-      </Box>
-    ))
-  }
+const Comment = props => {
+  console.log('props in Comment', props)
 
   return (
-    <Fragment>
-      {cardsJSX}
-    </Fragment>
+    <Box key={props.id}>
+      <p className="commentText">
+      &quot;{props.commentText}&quot;
+      </p>
+      <p className="author">
+        {(props.author !== null && props.author !== '') ? `by ${props.author}` : 'by Anonymous'}
+      </p>
+      <p className="created-at">
+      date posted: {props.created_at}
+      </p>
+      {(props.user_id === props.user.id) &&
+        <Link to={`/cards/${props.card_id}/comments/${props.id}/edit`}>
+          <Button className="btn btn-primary btn-sm edit" data-id={props.id}>
+            edit
+          </Button>
+        </Link>}
+      {(props.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={props.id}>delete</Button>}
+    </Box>
   )
 }
-export default Comments
+export default Comment
