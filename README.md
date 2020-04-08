@@ -4,7 +4,7 @@
 ## about
 This app shows definitions of fundamental terms to programming and gives simple, accessible definitions. Once signed in, users can add comments to these flashcards. They can also edit and delete their comments.
 
-![screenshot of the app]()
+![screenshot of the app](https://user-images.githubusercontent.com/22508682/78834849-3436ae00-79bd-11ea-9bd4-2fc10a8e4c2b.png)
 
 ## links
 - [front-end/production live link, i.e. the actual webiste](https://hashbangash.github.io/simple-fundamentals-client/)

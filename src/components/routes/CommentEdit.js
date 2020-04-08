@@ -65,7 +65,7 @@ const CommentEdit = props => {
         comment={commentData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        cancelPath={`/cards/${props.cardId}/`}
+        cancelPath={`/cards/${cardId}/`}
       />
     </Fragment>
   )
