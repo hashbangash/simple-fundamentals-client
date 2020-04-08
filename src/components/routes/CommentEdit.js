@@ -6,7 +6,6 @@ import CommentForm from '../shared/CommentForm'
 import messages from '../AutoDismissAlert/messages'
 
 const CommentEdit = props => {
-  console.log('props at CommentEdit start', props)
   const currentUrl = props.match.url
   const cardId = currentUrl.split('/')[2]
   const [commentData, setComment] = useState({ commentText: '', author: '' })
@@ -37,7 +36,6 @@ const CommentEdit = props => {
         author: commentData.author
       }
     }
-    console.log('formatted comment in CommentEdit', comment)
     axios({
       url: `${apiUrl}/comments/${props.match.params.id}`,
       method: 'PATCH',

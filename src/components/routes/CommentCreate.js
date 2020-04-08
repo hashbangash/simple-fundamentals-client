@@ -27,7 +27,6 @@ const CommentCreate = props => {
         card_id: cardId
       }
     }
-    console.log('formatted comment in CommentCreate', comment)
     axios({
       url: `${apiUrl}/comments`,
       method: 'POST',
