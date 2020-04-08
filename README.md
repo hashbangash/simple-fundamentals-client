@@ -46,8 +46,8 @@ I worked built with React for a few days, getting used to the syntax and the new
 
 After nearly finishing my app, I got stuck trying to create a component within a component in order to perform deletion of a resource. I was having issues with managing props and state. I decided to take a step back.
 
-Then, I read all the React Main Concepts documentation slowly and methodically. Then I read most of the React Hooks documentation.
+Then, I read all the [React Main Concepts documentation](https://reactjs.org/docs/hello-world.html) slowly and methodically. Then I read most of the [React Hooks documentation](https://reactjs.org/docs/hooks-intro.html).
 
-Then, I rearchitected my app based on the [Thinking in React documentation](). I made multiple React component hierarchy wireframes/diagrams showing what I had done, what I had tried, and what I was going to try.
+Then, I rearchitected my app based on the [Thinking in React documentation](https://reactjs.org/docs/thinking-in-react.html). I made [multiple React component hierarchy wireframes/diagrams](https://media.git.generalassemb.ly/user/25387/files/9cfc3700-7979-11ea-923d-9cd2c7dcac5a) showing what I had done, what I had tried, and what I was going to try.
 
 Then I got back to coding. It ended up working out. So the study and refactoring was incredibly worth it for my understand of React as a whole. I feel really comfortable with the main concepts of React and am looking forward to building with React again.
