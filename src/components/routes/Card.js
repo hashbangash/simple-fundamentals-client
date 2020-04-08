@@ -15,10 +15,6 @@ const Button = styled.button`
   margin: 0 0.25rem 0 0.25rem;
 `
 
-const NumLikes = styled.span`
-  margin: 0 0.25rem 0 0.25rem;
-`
-
 const Card = props => {
   const [card, setCard] = useState(null)
   const [commentsJSX, setCommentsJSX] = useState(null)
@@ -54,10 +50,10 @@ const Card = props => {
           {(comment.user_id === props.user.id) &&
             <Link to={`/cards/${comment.card_id}/comments/${comment.id}/edit`}>
               <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>
-                Edit
+                edit
               </Button>
             </Link>}
-          {(comment.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
+          {(comment.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>delete</Button>}
         </Box>
       ))
     } else {
@@ -91,12 +87,10 @@ const Card = props => {
         <p className="definition">
           {card.definition}
         </p>
-        <NumLikes>{card.likes.length} Like(s)</NumLikes>
         {(props.user !== null) &&
           <Fragment>
-            <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
             <Link to={`/cards/${props.match.params.id}/create-comment`}>
-              <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
+              <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>add comment</Button>
             </Link>
           </Fragment>
         }

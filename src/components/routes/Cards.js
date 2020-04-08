@@ -11,10 +11,6 @@ const Box = styled.div`
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 `
 
-const NumLikes = styled.span`
-  margin: 0 0.25rem 0 0.25rem;
-`
-
 const NumComments = styled.span`
   margin: 0 0.25rem 0 0.25rem;
   text-decoration: underline;
@@ -43,7 +39,6 @@ const Cards = props => {
       <p className="definition">
         {card.definition}
       </p>
-      <NumLikes>{card.likes.length} Like(s)</NumLikes>
       <NumComments>
         <Link to={`/cards/${card.id}`}>{card.comments.length} Comment(s)</Link>
       </NumComments>
