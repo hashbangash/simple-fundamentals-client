@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
+import messages from '../AutoDismissAlert/messages'
 
 const Box = styled.div`
   margin: 1rem;
@@ -28,7 +29,10 @@ const Cards = props => {
       .then(res => {
         setCards(res.data.cards)
       })
-      .catch(console.error)
+      .catch(() => props.msgAlert({
+        message: messages.indexCardsFailure,
+        variant: 'failure'
+      }))
   }, [])
 
   const cardsJSX = cards.map(card => (

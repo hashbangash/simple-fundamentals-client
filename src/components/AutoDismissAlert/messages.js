@@ -2,9 +2,19 @@ export default {
   signUpSuccess: 'Succesfully registered! You\'ve been signed in as well.',
   signUpFailure: 'Registration failed. Email may be taken, or passwords don\'t match.',
   signInSuccess: 'Welcome!',
-  signInFailure: 'Failed to sign in. Check your email and password and try again.',
+  signInFailure: 'Failure to sign in. Check your email and password and try again.',
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
-  changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
-  createCommentSuccess: 'Successfully created comment!'
+  changePasswordFailure: 'Failure to change passwords. Check your old password and try again.',
+  createCommentSuccess: 'Successfully created comment!',
+  createCommentFailure: 'Failure to create comment!',
+  editCommentSuccess: 'Successfully edited comment!',
+  editCommentFailure: 'Failure to edit comment!',
+  deleteCommentSuccess: 'Successfully deleted comment!',
+  deleteCommentFailure: 'Failure to delete comment!',
+  showCardSuccess: 'Successfully showing card with comments!',
+  showCardFailure: 'Failure to show card with comments.',
+  indexCardsSuccess: 'Successfully showing all flashcards!',
+  indexCardsFailure: 'Failure to show all flashcards!',
+  genericFailure: 'Sorry, error on our end.'
 }

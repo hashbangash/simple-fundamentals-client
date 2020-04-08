@@ -43,7 +43,10 @@ const CommentCreate = props => {
         message: messages.createCommentSuccess,
         variant: 'success'
       }))
-      .catch(console.error)
+      .catch(() => props.msgAlert({
+        message: messages.createCommentFailure,
+        variant: 'failure'
+      }))
   }
 
   if (createdCommentCardId) {

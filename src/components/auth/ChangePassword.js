@@ -36,7 +36,7 @@ class ChangePassword extends Component {
       .catch(error => {
         this.setState({ oldPassword: '', newPassword: '' })
         msgAlert({
-          heading: 'Change Password Failed with error: ' + error.message,
+          heading: 'Change Password Failure with error: ' + error.message,
           message: messages.changePasswordFailure,
           variant: 'danger'
         })

@@ -37,7 +37,7 @@ class SignIn extends Component {
       .catch(error => {
         this.setState({ email: '', password: '' })
         msgAlert({
-          heading: 'Sign In Failed with error: ' + error.message,
+          heading: 'Sign In Failure with error: ' + error.message,
           message: messages.signInFailure,
           variant: 'danger'
         })

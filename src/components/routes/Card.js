@@ -5,6 +5,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import styled from 'styled-components'
 import Comment from './Comment'
+import messages from '../AutoDismissAlert/messages'
 
 const Box = styled.div`
   margin: 1rem;
@@ -27,10 +28,12 @@ const Card = props => {
     axios(`${apiUrl}/cards/${props.match.params.id}`)
       .then(res => {
         setCard(res.data.card)
-        console.log('card', res.data.card)
         createJSX(res.data.card)
       })
-      .catch(console.error)
+      .catch(() => props.msgAlert({
+        message: messages.showCardFailure,
+        variant: 'failure'
+      }))
   }, [])
 
   const createJSX = (card) => {
@@ -47,6 +50,7 @@ const Card = props => {
           created_at={comment.created_at}
           user_id={comment.user_id}
           card_id={comment.card_id}
+          msgAlert={props.msgAlert}
         />
       ))
     } else {
