@@ -51,13 +51,13 @@ const Card = props => {
           <p className="created-at">
           date posted: {comment.created_at}
           </p>
-          {(comment.user.id === props.user.id) &&
-            <Link to={`/cards/${props.match.params.id}/comments/${comment.id}/edit`}>
+          {(comment.user_id === props.user.id) &&
+            <Link to={`/cards/${comment.card_id}/comments/${comment.id}/edit`}>
               <Button className="btn btn-primary btn-sm edit" data-id={comment.id}>
-              Edit
+                Edit
               </Button>
             </Link>}
-          {(comment.user.id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
+          {(comment.user_id === props.user.id) && <Button className="btn btn-danger btn-sm delete" data-id={comment.id}>Delete</Button>}
         </Box>
       ))
     } else {
@@ -92,10 +92,14 @@ const Card = props => {
           {card.definition}
         </p>
         <NumLikes>{card.likes.length} Like(s)</NumLikes>
-        <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
-        <Link to={`/cards/${props.match.params.id}/create-comment`}>
-          <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
-        </Link>
+        {(props.user !== null) &&
+          <Fragment>
+            <Button className="btn btn-primary btn-sm like" data-id={card.id}>Like</Button>
+            <Link to={`/cards/${props.match.params.id}/create-comment`}>
+              <Button className="btn btn-secondary btn-sm comment" data-id={card.id}>Comment</Button>
+            </Link>
+          </Fragment>
+        }
       </Box>
       {commentsJSX}
     </Fragment>
