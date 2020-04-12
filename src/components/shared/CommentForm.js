@@ -9,6 +9,7 @@ const CommentForm = ({ comment, handleSubmit, handleChange, cancelPath }) => (
       value={comment.commentText}
       name="commentText"
       onChange={handleChange}
+      required
     />
 
     <label>Author</label>
